@@ -1,21 +1,30 @@
 const express = require('express');
-
+const config = require('./config/config');
+const routes = require('./routes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy',
-    timestamp: new Date(),
-  });
+// Routes
+app.use('/', routes);
+
+// Start server
+app.listen(config.PORT, () => {
+  console.log(`Server running on port ${config.PORT}`);
+  console.log(`Environment: ${config.NODE_ENV}`);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'dev'}`);
+// shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, saving job state...');
+  process.exit(0);
 });
+
+process.on('SIGINT', () => {
+  console.log('SIGINT received, saving job state...');
+  process.exit(0);
+});
+
+module.exports = app;

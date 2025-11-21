@@ -1,11 +1,38 @@
-import { S3Client } from "@aws-sdk/client-s3";
+const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
+const config = require('../config/config');
 
-export const s3Client = new S3Client({
-  region: process.env.AWS_REGION || 'ap-south-1',
+const s3Client = new S3Client({
+  region: config.AWS_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    accessKeyId: config.AWS_ACCESS_KEY_ID,
+    secretAccessKey: config.AWS_SECRET_ACCESS_KEY
   }
 });
 
-export const S3_BUCKET = process.env.S3_BUCKET_NAME;
+const uploadFileToS3 = async (fileId, fileStream, fileName) => {
+  const uploadCommand = new PutObjectCommand({
+    Bucket: config.S3_BUCKET,
+    Key: fileId,
+    Body: fileStream,
+    Metadata: {
+      originalName: fileName,
+      uploadedAt: new Date().toISOString()
+    }
+  });
+
+  return await s3Client.send(uploadCommand);
+};
+
+const getFileFromS3 = async (fileId) => {
+  const getCommand = new GetObjectCommand({
+    Bucket: config.S3_BUCKET,
+    Key: fileId
+  });
+  
+  return await s3Client.send(getCommand);
+};
+
+module.exports = {
+  uploadFileToS3,
+  getFileFromS3
+};
