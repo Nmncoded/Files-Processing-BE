@@ -4,7 +4,7 @@ module.exports = {
   PORT: process.env.PORT || 3000,
   NODE_ENV: process.env.NODE_ENV || 'development',
   
-  AWS_REGION: process.env.AWS_REGION || 'us-east-1',
+  AWS_REGION: process.env.AWS_REGION,
   AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   S3_BUCKET: process.env.S3_BUCKET_NAME,
@@ -14,7 +14,7 @@ module.exports = {
   DB_NAME: process.env.DB_NAME || 'fileprocessing',
   
   // File Upload
-  MAX_FILE_SIZE: 500 * 1024 * 1024, // 500MB
+  MAX_FILE_SIZE: 50 * 1024 * 1024, // 50MB
   UPLOAD_DIR: 'uploads/',
   TEMP_DIR: 'temp/',
   

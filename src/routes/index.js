@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const uploadRoutes = require('./upload.routes');
 const jobRoutes = require('./job.routes');
 const healthRoutes = require('./health.routes');
