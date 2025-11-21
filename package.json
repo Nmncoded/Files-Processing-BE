@@ -1,0 +1,33 @@
+{
+  "name": "files-processing-be",
+  "version": "1.0.0",
+  "description": "Backend system for file upload and processing with S3 and MongoDB",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "express",
+    "s3",
+    "mongodb",
+    "file-processing",
+    "job-queue"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.937.0",
+    "express": "^5.1.0",
+    "mongodb": "^7.0.0",
+    "multer": "^2.0.2",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
